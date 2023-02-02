@@ -22,14 +22,28 @@ import vazkii.botania.common.world.WorldTypeSkyblock;
 
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public final class SkyblockRenderEvents {
+	static final int simpleVoidWorldId = 43;
 
 	@SubscribeEvent
 	public static void onRender(RenderWorldLastEvent event) {
 		World world = Minecraft.getMinecraft().world;
-		if(ConfigHandler.enableFancySkybox && world.provider.getDimension() == 0 && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().world))) {
-			if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))
-				world.provider.setSkyRenderer(new SkyblockSkyRenderer());
+		int id = world.provider.getDimension();
+		switch(id) {
+			case 0:
+				if(ConfigHandler.enableFancySkybox && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().world))) {
+					if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))
+						world.provider.setSkyRenderer(new SkyblockSkyRenderer());
+				}
+				break;
+			case simpleVoidWorldId:
+				if(ConfigHandler.enableFancySkyboxInSimpleVoidWorlds) {
+					if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))
+						world.provider.setSkyRenderer(new SkyblockSkyRenderer());
+				}
+				break;
+			default:
 		}
+		
 	}
 
 }
