@@ -1,4 +1,5 @@
 ## **All credit goes to Vazkii for the original mod and other contributors that have kept the mod updated.**
+### This fork is no longer necessary! Functionality has been adapted by [UniversalTweaks](https://github.com/ACGaming/UniversalTweaks)
 ![](web/img/logo.png)  
 Welcome to the Botania repository.  
 
